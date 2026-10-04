@@ -1,9 +1,9 @@
-yaml
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -18,9 +18,11 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,9 +33,8 @@ jobs:
       - name: Upload files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: "."
 
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
-
